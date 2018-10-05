@@ -7,7 +7,7 @@ Want to filter by level in your browser?
 Want to inspect the objects arguments instead of printing them as json strings?
 
 ```
-npm install winston-browser-console -D
+npm install winston-transport-browserconsole -S
 ```
 
 And here you have a little sample:
