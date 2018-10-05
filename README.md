@@ -1,6 +1,6 @@
 # Winston Transport BrowserConsole
 
-Want to log in browser like using console.log but using winston?
+Want to log in browser like using console.log but taking advantage of all facilities winston provides?
 
 Want to filter by level in your browser?
 
@@ -40,4 +40,4 @@ winston.error("ERROR ", {a: 1, b: "two"});
 
 
 ***Notice*** Tested with version 3.x.x of winston.
-Please be sure to set the *level* in the ConsoleBrowser constructor as did not find a good way to get the one configured in winston.
+Please be sure to set the *level* in the ConsoleBrowser constructor as did not find a good way to get the one you could configure in winston.
