@@ -7,7 +7,7 @@
   "private": false,
   "scripts": {
     "start": "webpack-dev-server --mode development",
-    "build": "tsc --project tsconfig.prod.json",
+    "build": "tsc --project tsconfig.prod.json --declaration",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
