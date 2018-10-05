@@ -1,0 +1,42 @@
+{
+  "name": "winston-transport-browserconsole",
+  "version": "1.0.0",
+  "description": "BrowserConsole transport for winston logger.",
+  "commented-main": "index.js",
+  "main": "dist/BrowserConsole.js",
+  "private": false,
+  "scripts": {
+    "start": "webpack-dev-server --mode development",
+    "build": "tsc --project tsconfig.prod.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarcoMedrano/winston-transport-browserconsole.git"
+  },
+  "keywords": [
+    "winston",
+    "browser",
+    "console"
+  ],
+  "author": "Marco Medrano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarcoMedrano/winston-transport-browserconsole/issues"
+  },
+  "homepage": "https://github.com/MarcoMedrano/winston-transport-browserconsole#readme",
+  "devDependencies": {
+    "@types/node": "^10.11.4",
+    "ts-loader": "^5.2.1",
+    "tslint": "^5.11.0",
+    "tslint-webpack-plugin": "^1.2.2",
+    "typescript": "^3.1.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
+  },
+  "dependencies": {
+    "winston": "^3.1.0",
+    "winston-transport": "^4.2.0"
+  }
+}
