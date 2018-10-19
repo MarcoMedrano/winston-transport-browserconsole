@@ -13,7 +13,7 @@ npm install winston-transport-browserconsole -S
 And here you have a little sample:
 ```
 import * as winston from "winston";
-import BrowserConsole from 'winston-browser-console';
+import BrowserConsole from 'winston-transport-browserconsole';
 
 const level = "debug";
 winston.configure({
