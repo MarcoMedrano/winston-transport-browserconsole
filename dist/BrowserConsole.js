@@ -52,8 +52,11 @@ var BrowserConsole = /** @class */ (function (_super) {
             var message = logEntry.message, level = logEntry.level, rest = __rest(logEntry, ["message", "level"]);
             var mappedMethod = this.methods[level];
             // yeah JSON trick to get rid of Symbol properties.
-            // eslint-disable-next-line
-            console[mappedMethod](message, JSON.parse(JSON.stringify(rest)));
+            var obj = JSON.parse(JSON.stringify(rest));
+            if (Object.keys(obj).length === 0)
+                console[mappedMethod](message);
+            else
+                console[mappedMethod](message, obj);
         }
         callback();
     };
