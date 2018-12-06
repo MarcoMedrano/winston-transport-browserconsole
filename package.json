@@ -1,6 +1,6 @@
 {
   "name": "winston-transport-browserconsole",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "BrowserConsole transport for winston logger.",
   "commented-main": "index.js",
   "main": "dist/BrowserConsole.js",
