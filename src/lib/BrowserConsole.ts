@@ -5,7 +5,7 @@ import * as Transport from 'winston-transport';
 export default class BrowserConsole extends Transport {
 
     private methods = {
-        debug: 'log',
+        debug: 'debug',
         error: 'error',
         info: 'info',
         warn: 'warn',
@@ -26,6 +26,7 @@ export default class BrowserConsole extends Transport {
     }
 
     public log(logEntry: winston.LogEntry, callback: any) {
+        (window as any).l = logEntry;
         setImmediate(() => {
             (this as any).emit('logged', logEntry);
         });
@@ -33,16 +34,17 @@ export default class BrowserConsole extends Transport {
         const incommingLevel: Level = Level[logEntry.level];
 
         if (incommingLevel <= Level[this.level!]) {
-            const { message, level, ...rest } = logEntry;
+            const { message, level } = logEntry;
             const mappedMethod = this.methods[level];
 
-            // yeah JSON trick to get rid of Symbol properties.
-            const obj = JSON.parse(JSON.stringify(rest));
-            if (Object.keys(obj).length === 0)
+            if (Object.getOwnPropertySymbols(logEntry).length === 2)
                 console[mappedMethod](message);
-            else
-                console[mappedMethod](message, obj);
-
+            else {
+                // @ts-ignore
+                let args = logEntry[Object.getOwnPropertySymbols(logEntry)[1]];
+                args = args.length >= 1 ? args[0] : args;
+                console[mappedMethod](message, args);
+            }
         }
 
         callback();
