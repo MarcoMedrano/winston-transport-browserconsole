@@ -6,6 +6,9 @@ Want to filter by level in your browser?
 
 Want to inspect the objects arguments instead of printing them as json strings?
 
+
+<img src="res/filtering.gif" width="640">
+
 ```
 npm install winston-transport-browserconsole -S
 ```
@@ -33,9 +36,17 @@ winston.configure({
 });
 
 winston.debug("DEBUG ", {a: 1, b: "two"});
+winston.debug("DEBUG ", {a: 1, b: "two"});
+winston.info("INFO ", {a: 1, b: "two"});
 winston.info("INFO ", {a: 1, b: "two"});
 winston.warn("WARN", {a: 1, b: "two"});
+winston.warn("WARN", {a: 1, b: "two"});
 winston.error("ERROR ", {a: 1, b: "two"});
+winston.error("ERROR ", {a: 1, b: "two"});
+
+winston.debug("A message alone :'(\n hahaha");
+winston.debug("Here examinable Object ", {test: 'test', sub: { object : { test : "here" } } });
+
 ```
 
 

@@ -19,10 +19,19 @@ winston.configure({
 });
 
 winston.debug("DEBUG ", {a: 1, b: "two"});
+winston.debug("DEBUG ", {a: 1, b: "two"});
+winston.info("INFO ", {a: 1, b: "two"});
 winston.info("INFO ", {a: 1, b: "two"});
 winston.warn("WARN", {a: 1, b: "two"});
+winston.warn("WARN", {a: 1, b: "two"});
+winston.error("ERROR ", {a: 1, b: "two"});
 winston.error("ERROR ", {a: 1, b: "two"});
 
-winston.debug("Empty ");
-winston.debug("Object ", {test: 'test'});
+winston.debug("A message alone :'(\n hahaha");
+winston.debug("Here examinable Object ", {test: 'test', sub: { object : { test : "here" } } });
+winston.debug("Here examinable Object ", {test: 'test'});
+winston.debug("Here examinable Object ", {test: 'test'});
+winston.debug("Here examinable Object ", {test: 'test'});
+winston.debug("Here examinable Object ", {test: 'test'});
+winston.debug("Here examinable Object ", {test: 'test'});
 winston.debug("STRING ", "A string here");
