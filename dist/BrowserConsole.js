@@ -11,15 +11,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
-            t[p[i]] = s[p[i]];
-    return t;
-};
 import * as winston from "winston";
 import * as Transport from 'winston-transport';
 var BrowserConsole = /** @class */ (function (_super) {
@@ -27,7 +18,7 @@ var BrowserConsole = /** @class */ (function (_super) {
     function BrowserConsole(opts) {
         var _this = _super.call(this, opts) || this;
         _this.methods = {
-            debug: 'log',
+            debug: 'debug',
             error: 'error',
             info: 'info',
             warn: 'warn',
@@ -44,19 +35,22 @@ var BrowserConsole = /** @class */ (function (_super) {
     }
     BrowserConsole.prototype.log = function (logEntry, callback) {
         var _this = this;
+        window.l = logEntry;
         setImmediate(function () {
             _this.emit('logged', logEntry);
         });
         var incommingLevel = Level[logEntry.level];
         if (incommingLevel <= Level[this.level]) {
-            var message = logEntry.message, level = logEntry.level, rest = __rest(logEntry, ["message", "level"]);
+            var message = logEntry.message, level = logEntry.level;
             var mappedMethod = this.methods[level];
-            // yeah JSON trick to get rid of Symbol properties.
-            var obj = JSON.parse(JSON.stringify(rest));
-            if (Object.keys(obj).length === 0)
+            if (Object.getOwnPropertySymbols(logEntry).length === 2)
                 console[mappedMethod](message);
-            else
-                console[mappedMethod](message, obj);
+            else {
+                // @ts-ignore
+                var args = logEntry[Object.getOwnPropertySymbols(logEntry)[1]];
+                args = args.length >= 1 ? args[0] : args;
+                console[mappedMethod](message, args);
+            }
         }
         callback();
     };
