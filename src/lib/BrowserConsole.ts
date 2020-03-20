@@ -1,8 +1,8 @@
 
 import * as winston from "winston";
-import * as Transport from 'winston-transport';
+import TransportStream = require('winston-transport');
 
-export default class BrowserConsole extends Transport {
+export default class BrowserConsole extends TransportStream {
 
     private methods = {
         debug: 'debug',
@@ -11,7 +11,7 @@ export default class BrowserConsole extends Transport {
         warn: 'warn',
     };
 
-    constructor(opts?: Transport.TransportStreamOptions) {
+    constructor(opts?: TransportStream.TransportStreamOptions) {
         super(opts);
 
         // this.level = Level[Level.debug];
@@ -25,8 +25,8 @@ export default class BrowserConsole extends Transport {
         }
     }
 
-    public log(logEntry: winston.LogEntry, callback: any) {
-        (window as any).l = logEntry;
+    public log(logEntry: winston.LogEntry, next: () => void) {
+        // (window as any).l = logEntry;
         setImmediate(() => {
             (this as any).emit('logged', logEntry);
         });
@@ -47,7 +47,7 @@ export default class BrowserConsole extends Transport {
             }
         }
 
-        callback();
+        next();
     }
 }
 
