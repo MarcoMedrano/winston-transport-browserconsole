@@ -1,5 +1,5 @@
 import * as winston from "winston";
-import TransportStream = require('winston-transport');
+import TransportStream = require("winston-transport");
 export default class BrowserConsole extends TransportStream {
     private methods;
     constructor(opts?: TransportStream.TransportStreamOptions);

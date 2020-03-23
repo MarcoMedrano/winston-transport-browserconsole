@@ -1,59 +1,57 @@
-
 import * as winston from "winston";
-import TransportStream = require('winston-transport');
+import TransportStream = require("winston-transport");
 
 export default class BrowserConsole extends TransportStream {
+  private methods = {
+    debug: "debug",
+    error: "error",
+    info: "info",
+    warn: "warn"
+  };
 
-    private methods = {
-        debug: 'debug',
-        error: 'error',
-        info: 'info',
-        warn: 'warn',
-    };
+  constructor(opts?: TransportStream.TransportStreamOptions) {
+    super(opts);
 
-    constructor(opts?: TransportStream.TransportStreamOptions) {
-        super(opts);
+    // this.level = Level[Level.debug];
 
-        // this.level = Level[Level.debug];
+    if (opts && opts.level && Level.hasOwnProperty(opts.level)) {
+      this.level = opts.level;
+    } else {
+      // TODO this is not getting the level configured in winston.configure
+      this.level = winston.level;
+    }
+  }
 
-        if (opts && opts.level && Level.hasOwnProperty(opts.level)) {
-            this.level = opts.level;
-        }
-        else {
-            // TODO this is not getting the level configured in winston.configure
-            this.level = winston.level;
-        }
+  public log(logEntry: winston.LogEntry, next: () => void) {
+    // (window as any).l = logEntry;
+    setImmediate(() => {
+      (this as any).emit("logged", logEntry);
+    });
+
+    const incommingLevel: Level = Level[logEntry.level];
+
+    if (incommingLevel <= Level[this.level!]) {
+      const { message, level } = logEntry;
+      const mappedMethod = this.methods[level];
+
+      if (Object.getOwnPropertySymbols(logEntry).length === 2)
+        console[mappedMethod](message);
+      else {
+        // @ts-ignore
+        let args = logEntry[Object.getOwnPropertySymbols(logEntry)[1]];
+        args = args.length >= 1 ? args[0] : args;
+        if (args) console[mappedMethod](message, args);
+        else console[mappedMethod](message);
+      }
     }
 
-    public log(logEntry: winston.LogEntry, next: () => void) {
-        // (window as any).l = logEntry;
-        setImmediate(() => {
-            (this as any).emit('logged', logEntry);
-        });
-
-        const incommingLevel: Level = Level[logEntry.level];
-
-        if (incommingLevel <= Level[this.level!]) {
-            const { message, level } = logEntry;
-            const mappedMethod = this.methods[level];
-
-            if (Object.getOwnPropertySymbols(logEntry).length === 2)
-                console[mappedMethod](message);
-            else {
-                // @ts-ignore
-                let args = logEntry[Object.getOwnPropertySymbols(logEntry)[1]];
-                args = args.length >= 1 ? args[0] : args;
-                console[mappedMethod](message, args);
-            }
-        }
-
-        next();
-    }
+    next();
+  }
 }
 
 enum Level {
-    error = 0,
-    warn = 1,
-    info = 2,
-    debug = 4,
+  error = 0,
+  warn = 1,
+  info = 2,
+  debug = 4
 }

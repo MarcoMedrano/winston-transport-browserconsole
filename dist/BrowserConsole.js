@@ -20,10 +20,10 @@ var BrowserConsole = /** @class */ (function (_super) {
     function BrowserConsole(opts) {
         var _this = _super.call(this, opts) || this;
         _this.methods = {
-            debug: 'debug',
-            error: 'error',
-            info: 'info',
-            warn: 'warn',
+            debug: "debug",
+            error: "error",
+            info: "info",
+            warn: "warn"
         };
         // this.level = Level[Level.debug];
         if (opts && opts.level && Level.hasOwnProperty(opts.level)) {
@@ -39,7 +39,7 @@ var BrowserConsole = /** @class */ (function (_super) {
         var _this = this;
         // (window as any).l = logEntry;
         setImmediate(function () {
-            _this.emit('logged', logEntry);
+            _this.emit("logged", logEntry);
         });
         var incommingLevel = Level[logEntry.level];
         if (incommingLevel <= Level[this.level]) {
@@ -51,7 +51,10 @@ var BrowserConsole = /** @class */ (function (_super) {
                 // @ts-ignore
                 var args = logEntry[Object.getOwnPropertySymbols(logEntry)[1]];
                 args = args.length >= 1 ? args[0] : args;
-                console[mappedMethod](message, args);
+                if (args)
+                    console[mappedMethod](message, args);
+                else
+                    console[mappedMethod](message);
             }
         }
         next();
