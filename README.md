@@ -51,4 +51,4 @@ winston.debug("Here examinable Object ", {test: 'test', sub: { object : { test :
 
 
 ***Notice*** Tested with version 3.x.x of winston.
-Please be sure to set the *level* in the ConsoleBrowser constructor as did not find a good way to get the one you may have directly configured in winston.
+~~Please be sure to set the *level* in the ConsoleBrowser constructor as did not find a good way to get the one you may have directly configured in winston.~~

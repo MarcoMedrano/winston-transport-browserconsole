@@ -12,13 +12,8 @@ export default class BrowserConsole extends TransportStream {
   constructor(opts?: TransportStream.TransportStreamOptions) {
     super(opts);
 
-    // this.level = Level[Level.debug];
-
     if (opts && opts.level && Level.hasOwnProperty(opts.level)) {
       this.level = opts.level;
-    } else {
-      // TODO this is not getting the level configured in winston.configure
-      this.level = winston.level;
     }
   }
 
@@ -28,9 +23,6 @@ export default class BrowserConsole extends TransportStream {
       (this as any).emit("logged", logEntry);
     });
 
-    const incommingLevel: Level = Level[logEntry.level];
-
-    if (incommingLevel <= Level[this.level!]) {
       const { message, level } = logEntry;
       const mappedMethod = this.methods[level];
 
@@ -43,7 +35,6 @@ export default class BrowserConsole extends TransportStream {
         if (args) console[mappedMethod](message, args);
         else console[mappedMethod](message);
       }
-    }
 
     next();
   }
