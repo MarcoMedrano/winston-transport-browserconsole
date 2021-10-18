@@ -1,5 +1,5 @@
 import * as winston from "winston";
-import { LEVEL } from "triple-beam";
+import { LEVEL, MESSAGE } from "triple-beam";
 import TransportStream = require("winston-transport");
 
 export default class BrowserConsole extends TransportStream {
@@ -25,7 +25,7 @@ export default class BrowserConsole extends TransportStream {
     });
 
       // @ts-ignore
-      const { message, [LEVEL]: level } = logEntry;
+      const { [MESSAGE]: message, [LEVEL]: level } = logEntry;
       const mappedMethod = this.methods[level];
 
       if (Object.getOwnPropertySymbols(logEntry).length === 2)

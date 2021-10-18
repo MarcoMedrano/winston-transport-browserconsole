@@ -37,7 +37,7 @@ var BrowserConsole = /** @class */ (function (_super) {
             _this.emit("logged", logEntry);
         });
         // @ts-ignore
-        var _a = logEntry, message = _a.message, _b = triple_beam_1.LEVEL, level = _a[_b];
+        var _a = logEntry, _b = triple_beam_1.MESSAGE, message = _a[_b], _c = triple_beam_1.LEVEL, level = _a[_c];
         var mappedMethod = this.methods[level];
         if (Object.getOwnPropertySymbols(logEntry).length === 2)
             console[mappedMethod](message);
