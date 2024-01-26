@@ -1,10 +1,16 @@
 # Winston Transport BrowserConsole
+To use it:
+```shell
+npm i winston-transport-browserconsole
+```
+It is already [hosted in npm](https://www.npmjs.com/package/winston-transport-browserconsole). 5k downloads weekly.
 
-Want to log in browser like using console.log but taking advantage of all facilities winston provides?
+
+Want to log in browser like using console.log but taking advantage of all the facilities winston provides?
 
 Want to filter by level in your browser?
 
-Want to inspect the objects arguments instead of printing them as json strings?
+Want to inspect the object's arguments instead of printing them as json strings?
 
 
 <img src="res/filtering.gif" width="640">
