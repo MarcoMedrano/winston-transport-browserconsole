@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+var triple_beam_1 = require("triple-beam");
 var TransportStream = require("winston-transport");
 var BrowserConsole = /** @class */ (function (_super) {
     __extends(BrowserConsole, _super);
@@ -35,19 +36,10 @@ var BrowserConsole = /** @class */ (function (_super) {
         setImmediate(function () {
             _this.emit("logged", logEntry);
         });
-        var message = logEntry.message, level = logEntry.level;
+        // @ts-ignore
+        var _a = logEntry, _b = triple_beam_1.MESSAGE, message = _a[_b], _c = triple_beam_1.LEVEL, level = _a[_c];
         var mappedMethod = this.methods[level];
-        if (Object.getOwnPropertySymbols(logEntry).length === 2)
-            console[mappedMethod](message);
-        else {
-            // @ts-ignore
-            var args = logEntry[Object.getOwnPropertySymbols(logEntry)[1]];
-            args = args.length >= 1 ? args[0] : args;
-            if (args)
-                console[mappedMethod](message, args);
-            else
-                console[mappedMethod](message);
-        }
+        console[mappedMethod](message);
         next();
     };
     return BrowserConsole;
